@@ -11,10 +11,18 @@ flowchart TD
     Client["Vite + React (TypeScript + Tailwind CSS)"]
     APIClient["Axios Client (lib/api.ts)"]
     SpringGateway["Spring Boot Security Filter & CORS"]
-    HealthController["Health & Actuator Probes (/api/v1/health)"]
+    HealthController["Health & Probes (/api/v1/health)"]
     AuthController["Authentication & RBAC (/api/v1/auth)"]
-    CatalogController["API Catalog & Versioning (/api/v1/apis)"]
+    CatalogController["API Catalog & Projects (/api/v1/apis)"]
+    DocController["OpenAPI Docs & Endpoints (/api/v1/endpoints)"]
+    VersionController["Versioning Engine (/api/v1/versions)"]
     TestingEngine["API Testing Engine (Safe Outbound HTTP)"]
+    DependencyEngine["Dependency Graph & Impact Analysis"]
+    ReleaseEngine["4-Stage Release Pipeline"]
+    DashboardEngine["Real-time Portfolio Analytics"]
+    ImpExpEngine["OpenAPI 3.x Import & Export"]
+    EnvEngine["Environment & Secret Management"]
+    NotifEngine["In-App Alert & Notification Center"]
     Database[("MySQL / H2 Database")]
 
     Client --> APIClient
@@ -22,45 +30,101 @@ flowchart TD
     SpringGateway --> HealthController
     SpringGateway --> AuthController
     SpringGateway --> CatalogController
+    SpringGateway --> DocController
+    SpringGateway --> VersionController
     SpringGateway --> TestingEngine
+    SpringGateway --> DependencyEngine
+    SpringGateway --> ReleaseEngine
+    SpringGateway --> DashboardEngine
+    SpringGateway --> ImpExpEngine
+    SpringGateway --> EnvEngine
+    SpringGateway --> NotifEngine
+
     AuthController --> Database
     CatalogController --> Database
+    DocController --> Database
+    VersionController --> Database
     TestingEngine --> Database
+    DependencyEngine --> Database
+    ReleaseEngine --> Database
+    DashboardEngine --> Database
+    ImpExpEngine --> Database
+    EnvEngine --> Database
+    NotifEngine --> Database
 ```
 
 ---
 
-## Core Modules & Scope
+## Complete Module Inventory (All 15 Modules Delivered)
 
-1. **User Management**: 5 user roles (`ADMIN`, `DEVELOPER`, `QA_ENGINEER`, `PROJECT_MANAGER`, `CONSUMER`) with JWT authentication.
-2. **API Catalog**: Projects, registration, search, multi-field filtering, and pagination.
-3. **API Version Management**: Immutable version snapshots, diff comparison, and deprecation.
-4. **Documentation**: Structured endpoint parameters, schema definitions, and OpenAPI 3.x compliance.
-5. **API Testing**: Automated test suites, assertion evaluations, response captures, and strict SSRF defenses.
-6. **Access Control**: Centralized RBAC enforcement at both backend service and frontend navigation levels.
-7. **Audit Trail**: Append-only audit logs recording every lifecycle transition and sensitive update.
-8. **Dependency Mapping**: Directional upstream/downstream relationship visualization and downstream impact analysis.
-9. **Release Management**: 4-stage delivery pipeline (`Development` &rarr; `Testing` &rarr; `Staging` &rarr; `Production`) with approval policies.
-10. **Portfolio Dashboard**: Real-time aggregated metrics computed from persisted operational data.
+| # | Branch | Key Scope & Capabilities |
+|:---:|:---|:---|
+| 1 | `feature/project-foundation` | Monorepo layout, Spring Boot starter integration, Vite React frontend, CORS/Health, Docs |
+| 2 | `feature/user-management` | User entity, 5 roles, secure login, JWT authentication, user registration |
+| 3 | `feature/api-catalog` | Projects, API catalog, multi-field filtering, pagination, search |
+| 4 | `feature/api-documentation` | Version-scoped endpoint documentation, OpenAPI 3.x generation |
+| 5 | `feature/api-version-management` | Semantic versioning, immutable snapshots, diff comparison, deprecation |
+| 6 | `feature/api-testing` | Test suites, test cases, safe outbound HTTP execution, SSRF defense |
+| 7 | `feature/access-control` | Centralized RBAC permissions, method security, UI RoleGuards |
+| 8 | `feature/audit-trail` | Append-only audit logs, lifecycle events, sensitive payload masking |
+| 9 | `feature/dependency-mapping` | Upstream/downstream relations, cycle detection, impact analysis |
+| 10 | `feature/release-management` | 4-stage pipeline (`Dev → Testing → Staging → Production`), approvals |
+| 11 | `feature/dashboard` | Aggregated real-time metrics, lifecycle distribution, pass rate |
+| 12 | `feature/api-import-export` | OpenAPI JSON/YAML import parser and export generator |
+| 13 | `feature/environment-management` | Environments, base URLs, variable masking & unmasking |
+| 14 | `feature/notifications` | In-app notification inbox, event alerts, broadcast messaging |
+| 15 | `feature/integration-hardening` | E2E integration smoke tests, CI automation, unified workspace navigation |
 
 ---
 
-## Repository Structure
+## Complete API Endpoint Catalog
 
 ```
-├── backend/                  # Spring Boot 4.x / Java 25 backend
-│   ├── src/main/java/        # Layered architecture (common, config, security, features)
-│   ├── src/main/resources/   # Application YAML profiles (dev, test)
-│   ├── pom.xml               # Maven configuration
-│   └── mvnw.cmd              # Maven wrapper
-├── frontend/                 # Vite + React (TypeScript) frontend
-│   ├── src/                  # App shell, components, features, lib, styles
-│   ├── package.json          # Frontend dependencies & scripts
-│   └── vite.config.ts        # Vite & Tailwind configuration
-├── docs/                     # Comprehensive architecture and branch documentation
-│   ├── branches/             # Per-feature branch contribution READMEs
-│   └── development-tracker.md# Lifecycle status & verification tracker
-└── .github/                  # CI workflows and PR templates
+Authentication & Users
+  POST   /api/v1/auth/login                  - Authenticate user & issue JWT
+  POST   /api/v1/users                       - Register new user
+  GET    /api/v1/users                       - List users
+
+API Catalog & Projects
+  GET    /api/v1/projects                    - List projects
+  POST   /api/v1/projects                    - Create project
+  GET    /api/v1/apis                        - Search & paginate APIs
+  POST   /api/v1/apis                        - Register API interface
+  GET    /api/v1/apis/{id}                   - Get API details
+
+Documentation & Versions
+  GET    /api/v1/versions/{id}/endpoints     - List endpoints for version
+  POST   /api/v1/endpoints                   - Document endpoint
+  GET    /api/v1/versions/{id}/openapi       - Generate live OpenAPI 3.0 spec
+  GET    /api/v1/apis/{apiId}/versions       - List API versions
+  POST   /api/v1/apis/{apiId}/versions       - Create semantic version
+  GET    /api/v1/versions/compare            - Compare two versions
+
+Automated Testing & SSRF Protection
+  GET    /api/v1/apis/{apiId}/test-suites    - List test suites
+  POST   /api/v1/apis/{apiId}/test-suites    - Create test suite
+  POST   /api/v1/test-suites/{id}/run        - Execute test suite safely
+
+Governance, Audit & Dependencies
+  GET    /api/v1/audit-logs                  - Query append-only audit trail
+  GET    /api/v1/apis/{apiId}/dependencies   - Upstream & downstream graph
+  GET    /api/v1/apis/{apiId}/dependencies/impact - Downstream impact analysis
+  POST   /api/v1/dependencies                - Add dependency (cycle-guarded)
+
+Releases & Analytics
+  GET    /api/v1/apis/{apiId}/releases       - List releases for API
+  POST   /api/v1/releases                    - Create release in DEVELOPMENT
+  POST   /api/v1/releases/{id}/promote       - Promote stage with approvals
+  GET    /api/v1/dashboard/summary           - Real-time aggregated metrics
+
+Interop, Environments & Alerts
+  POST   /api/v1/apis/import                 - Ingest OpenAPI 3.x spec
+  GET    /api/v1/versions/{id}/export        - Download OpenAPI 3.x spec file
+  GET    /api/v1/environments               - List deployment environments
+  POST   /api/v1/environments/{id}/variables - Set masked secret variable
+  GET    /api/v1/notifications              - List user notifications
+  POST   /api/v1/notifications               - Dispatch notification
+  PATCH  /api/v1/notifications/{id}/read     - Mark notification read
 ```
 
 ---
@@ -68,18 +132,18 @@ flowchart TD
 ## Local Development Setup
 
 ### Prerequisites
-- **Java**: 21+ (Detected Java 25)
+- **Java**: 21+ (Java 25 compatible)
 - **Node.js**: 18+ & npm
-- **MySQL**: 8.0+ running on port `3306`
+- **MySQL**: 8.0+ running on port `3306` (or H2 in-memory test profile)
 
 ### 1. Backend Setup
 ```bash
 cd backend
-# Run backend with active dev profile
-./mvnw spring-boot:run
+./mvnw clean spring-boot:run
 ```
-Backend API will be accessible at: `http://localhost:8080/api/v1`
-Health check: `http://localhost:8080/api/v1/health`
+Default bootstrap admin:
+- **Email**: `admin@apihub.local`
+- **Password**: `Admin@123456`
 
 ### 2. Frontend Setup
 ```bash
@@ -87,14 +151,4 @@ cd frontend
 npm install
 npm run dev
 ```
-Frontend will be available at: `http://localhost:3000` (or `http://localhost:5173`)
-
----
-
-## Branch Contribution Documentation
-
-| Branch | Contribution Guide |
-|:---|:---|
-| `feature/project-foundation` | [Foundation README](docs/branches/feature-project-foundation/README.md) |
-| `feature/user-management` | *Upcoming Phase 2* |
-| `feature/api-catalog` | *Upcoming Phase 2* |
+Open `http://localhost:3000` to interact with the full platform workspace.
