@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from './lib/api';
+import ApiCatalog from './features/catalog/ApiCatalog';
 import { Activity, ShieldCheck, Layers, Terminal, BookOpen, GitMerge, RefreshCw } from 'lucide-react';
 
 interface HealthData {
@@ -108,6 +109,11 @@ export default function App() {
               Test Connection
             </button>
           </div>
+        </section>
+
+        {/* Catalog Section */}
+        <section className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+          <ApiCatalog />
         </section>
 
         {/* Core Capabilities Grid */}
