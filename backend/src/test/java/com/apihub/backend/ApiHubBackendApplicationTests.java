@@ -1,0 +1,13 @@
+package com.apihub.backend;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class ApiHubBackendApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
