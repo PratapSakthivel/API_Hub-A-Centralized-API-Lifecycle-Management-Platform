@@ -21,7 +21,7 @@ interface VersionComparison {
   modifiedEndpoints: any[];
 }
 
-export default function VersionManagement({ apiId }: { apiId: number }) {
+export default function VersionManagement({ apiId = 1 }: { apiId?: number }) {
   const [versions, setVersions] = useState<VersionItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
