@@ -29,7 +29,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // Initialize standard roles
+        // 1. Initialize all 5 standard roles
         for (RoleName roleName : RoleName.values()) {
             if (roleRepository.findByName(roleName).isEmpty()) {
                 roleRepository.save(Role.builder()
@@ -39,21 +39,30 @@ public class DataInitializer implements CommandLineRunner {
             }
         }
 
-        // Bootstrap initial administrator account safely if no users exist
-        if (userRepository.count() == 0) {
-            Role adminRole = roleRepository.findByName(RoleName.ADMIN).orElseThrow();
-            Role devRole = roleRepository.findByName(RoleName.DEVELOPER).orElseThrow();
+        // 2. Ensure all demo role accounts exist with known passwords for 1-click evaluation
+        seedUserIfNotExists(adminEmail, "System Administrator", "Admin@123456", RoleName.ADMIN, RoleName.DEVELOPER);
+        seedUserIfNotExists("dev@apihub.local", "Elena Rostova (Developer)", "Dev@123456", RoleName.DEVELOPER);
+        seedUserIfNotExists("pm@apihub.local", "Marcus Vance (Product Manager)", "Pm@123456", RoleName.PROJECT_MANAGER);
+        seedUserIfNotExists("qa@apihub.local", "Sarah Connor (QA Engineer)", "Qa@123456", RoleName.QA_ENGINEER);
+        seedUserIfNotExists("consumer@apihub.local", "David Kim (Partner Consumer)", "Consumer@123456", RoleName.CONSUMER);
+    }
 
-            User admin = User.builder()
-                    .email(adminEmail.toLowerCase().trim())
-                    .displayName("System Administrator")
-                    .passwordHash(passwordEncoder.encode("Admin@123456"))
+    private void seedUserIfNotExists(String email, String displayName, String password, RoleName... roles) {
+        String normalizedEmail = email.toLowerCase().trim();
+        if (userRepository.findByEmail(normalizedEmail).isEmpty()) {
+            Set<Role> roleSet = new HashSet<>();
+            for (RoleName r : roles) {
+                roleRepository.findByName(r).ifPresent(roleSet::add);
+            }
+            User user = User.builder()
+                    .email(normalizedEmail)
+                    .displayName(displayName)
+                    .passwordHash(passwordEncoder.encode(password))
                     .enabled(true)
-                    .roles(new HashSet<>(Set.of(adminRole, devRole)))
+                    .roles(roleSet)
                     .build();
-
-            userRepository.save(admin);
-            log.info("Bootstrapped default administrator account: {}", adminEmail);
+            userRepository.save(user);
+            log.info("Bootstrapped demo user: {} with roles {}", normalizedEmail, roleSet.stream().map(Role::getName).toList());
         }
     }
 }
