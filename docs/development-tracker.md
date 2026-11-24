@@ -12,8 +12,8 @@
 | 8 | `feature/audit-trail` | Append-only audit logs, lifecycle events, sensitive masking | Completed | 3 | Merged #8 | Passed | Compliance & history |
 | 9 | `feature/dependency-mapping` | Upstream/downstream relations, cycle check, impact analysis | Completed | 4 | Merged #9 | Passed | Signature feature |
 | 10 | `feature/release-management` | Stages (Dev -> Testing -> Staging -> Prod), approvals | Completed | 3 | Merged #10 | Passed | Release governance |
-| 11 | `feature/dashboard` | Aggregated portfolio metrics, pass rates, stage counts | Pending | 0 | - | - | Real-time analytics |
-| 12 | `feature/api-import-export` | OpenAPI JSON/YAML import parser, export generator | Pending | 0 | - | - | Specification interop |
-| 13 | `feature/environment-management` | Environments, base URLs, variable masking/encryption | Pending | 0 | - | - | Test config |
-| 14 | `feature/notifications` | In-app notification inbox, lifecycle notifications | Pending | 0 | - | - | Event messaging |
-| 15 | `feature/integration-hardening` | End-to-end smoke tests, CI automation, final docs & audit | Pending | 0 | - | - | Release readiness |
+| 11 | `feature/dashboard` | Aggregated portfolio metrics, pass rates, stage counts | Completed | 3 | Merged #11 | Passed | Real-time analytics |
+| 12 | `feature/api-import-export` | OpenAPI JSON/YAML import parser, export generator | Completed | 3 | Merged #12 | Passed | Specification interop |
+| 13 | `feature/environment-management` | Environments, base URLs, variable masking/encryption | Completed | 3 | Merged #13 | Passed | Test config |
+| 14 | `feature/notifications` | In-app notification inbox, lifecycle notifications | Completed | 3 | Merged #14 | Passed | Event messaging |
+| 15 | `feature/integration-hardening` | End-to-end smoke tests, CI automation, unified workspace navigation | Completed | 3 | Merged #15 | Passed | Platform production release |
