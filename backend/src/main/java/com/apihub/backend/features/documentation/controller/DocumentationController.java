@@ -19,6 +19,13 @@ import java.util.List;
 public class DocumentationController {
 
     private final DocumentationService documentationService;
+    private final com.apihub.backend.features.documentation.service.OpenApiGeneratorService openApiGeneratorService;
+
+    @GetMapping("/versions/{versionId}/openapi")
+    public ResponseEntity<ApiResponse<java.util.Map<String, Object>>> getOpenApiSpec(@PathVariable Long versionId) {
+        java.util.Map<String, Object> spec = openApiGeneratorService.generateOpenApiSpec(versionId);
+        return ResponseEntity.ok(ApiResponse.success(spec, "OpenAPI specification generated"));
+    }
 
     @GetMapping("/versions/{versionId}/endpoints")
     public ResponseEntity<ApiResponse<List<EndpointDto>>> getEndpoints(@PathVariable Long versionId) {
