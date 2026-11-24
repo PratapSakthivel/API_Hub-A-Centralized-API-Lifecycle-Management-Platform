@@ -26,7 +26,7 @@ interface TestRunItem {
   startedAt: string;
 }
 
-export default function ApiTestingView({ apiId }: { apiId: number }) {
+export default function ApiTestingView({ apiId = 1 }: { apiId?: number }) {
   const [, setSuites] = useState<TestSuiteItem[]>([]);
   const [selectedSuite, setSelectedSuite] = useState<TestSuiteItem | null>(null);
   const [cases, setCases] = useState<TestCaseItem[]>([]);
